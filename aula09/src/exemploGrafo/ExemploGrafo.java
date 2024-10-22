@@ -16,3 +16,4 @@ public class ExemploGrafo {
 		grafo.adicionarAresta(2.0, "Claudio", "Lorenzo");
 		grafo.adicionarAresta(3.0, "Claudio", "Paulo");
 	}
+}
