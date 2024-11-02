@@ -27,6 +27,6 @@ public class Aresta {
 
 	@Override
 	public String toString() {
-		return de.getNome() + "Presenteia: " + para.getNome();
+		return de.getNome() + " presenteia " + para.getNome();
 	}
 }
