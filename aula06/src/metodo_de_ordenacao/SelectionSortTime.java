@@ -13,7 +13,7 @@ public class SelectionSortTime {
     // Metodo de Ordenação Selection Sort
     int menor_posicao, aux;
 
-		for (int i = 0; i < vetor.length; i++) {
+		for (int k = 0; k < vetor.length; k++) {
         menor_posicao = i;
         for (int j = i + 1; j < vetor.length; j++) {
             if (vetor[j] < vetor[menor_posicao]) {
