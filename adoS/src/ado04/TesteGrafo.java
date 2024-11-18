@@ -111,10 +111,8 @@ public class TesteGrafo {
 		System.out.println("Digite o ponto de chegada:");
 		String fim = scanner.nextLine().toUpperCase();
 
-		// Obtém o caminho original
 		List<String> caminhoOriginal = grafo.menorCaminho(inicio, fim);
 
-		// Se não houver caminho original, exibe a mensagem
 		if (caminhoOriginal.isEmpty()) {
 			System.out.println("Não há caminho disponível entre " + inicio + " e " + fim);
 		} else {
@@ -131,7 +129,6 @@ public class TesteGrafo {
 			System.out.println(caminhoOriginal.get(caminhoOriginal.size() - 1));
 			System.out.println("Distância total: " + distanciaTotal + " metros");
 
-			// Exibindo caminhos alternativos
 			List<List<String>> caminhosAlternativos = grafo.caminhoAlternativo(inicio, fim, caminhoOriginal);
 
 			if (caminhosAlternativos.isEmpty()) {
@@ -139,10 +136,9 @@ public class TesteGrafo {
 			} else {
 				boolean encontrouAlternativoDiferente = false;
 				System.out.println("Caminhos alternativos encontrados:");
-				for (int i = 0; i < Math.min(2, caminhosAlternativos.size()); i++) { // Limite de 2 alternativas
+				for (int i = 0; i < Math.min(2, caminhosAlternativos.size()); i++) {
 					List<String> caminhoAlternativo = caminhosAlternativos.get(i);
 
-					// Verifica se o caminho alternativo é diferente do caminho original
 					if (!caminhoAlternativo.equals(caminhoOriginal)) {
 						encontrouAlternativoDiferente = true;
 						int distanciaTotal1 = 0;
@@ -158,7 +154,6 @@ public class TesteGrafo {
 					}
 				}
 
-				// Se não encontrou nenhum caminho alternativo diferente
 				if (!encontrouAlternativoDiferente) {
 					System.out.println("Não foram encontrados caminhos alternativos diferentes do caminho original.");
 				}

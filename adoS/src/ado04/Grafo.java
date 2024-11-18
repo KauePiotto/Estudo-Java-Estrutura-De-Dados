@@ -82,7 +82,6 @@ public class Grafo {
 	public List<List<String>> caminhoAlternativo(String inicio, String fim, List<String> caminhoOriginal) {
 		List<List<String>> caminhosAlternativos = new ArrayList<>();
 
-		// Definir um conjunto de arestas visitadas (aquelas do caminho original)
 		Set<String> arestasUsadas = new HashSet<>();
 		for (int i = 0; i < caminhoOriginal.size() - 1; i++) {
 			String origem = caminhoOriginal.get(i);
@@ -106,7 +105,6 @@ public class Grafo {
 		while (!fila.isEmpty()) {
 			String atual = fila.poll().destino;
 
-			// Evita que nós no caminho original sejam visitados
 			if (visitados.contains(atual)) {
 				continue;
 			}
@@ -114,7 +112,6 @@ public class Grafo {
 			visitados.add(atual);
 
 			for (Aresta aresta : nos.get(atual).getConexoes()) {
-				// Ignora arestas que já foram usadas no caminho original
 				String conexao = atual + aresta.destino;
 				if (arestasUsadas.contains(conexao)) {
 					continue;
