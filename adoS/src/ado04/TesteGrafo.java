@@ -13,11 +13,11 @@ public class TesteGrafo {
 		grafo.adicionarAresta("A", "X", 317);
 		grafo.adicionarAresta("A", "V", 370);
 
-		// Todas as possibilidades do ponta B
+		// Todas as possibilidades do ponto B
 		grafo.adicionarAresta("B", "C", 47);
 		grafo.adicionarAresta("B", "A", 300);
 
-		// Todas as posibilidades do ponto C
+		// Todas as possibilidades do ponto C
 		grafo.adicionarAresta("C", "B", 47);
 		grafo.adicionarAresta("C", "D", 62);
 		grafo.adicionarAresta("C", "H", 141);
@@ -111,19 +111,59 @@ public class TesteGrafo {
 		System.out.println("Digite o ponto de chegada:");
 		String fim = scanner.nextLine().toUpperCase();
 
-		// Calculando até dois caminhos e o menor caminho
-		List<String> caminho = grafo.menorCaminho(inicio, fim);
+		// Obtém o caminho original
+		List<String> caminhoOriginal = grafo.menorCaminho(inicio, fim);
 
-		if (caminho.isEmpty()) {
+		// Se não houver caminho original, exibe a mensagem
+		if (caminhoOriginal.isEmpty()) {
 			System.out.println("Não há caminho disponível entre " + inicio + " e " + fim);
 		} else {
-			System.out.println("Menor caminho:");
-			for (int i = 0; i < caminho.size() - 1; i++) {
-				System.out.print(caminho.get(i) + " -> ");
+			// Exibindo o caminho original
+			System.out.println("Caminho original de " + inicio + " a " + fim + ":");
+			int distanciaTotal = 0;
+			for (int i = 0; i < caminhoOriginal.size() - 1; i++) {
+				String origem = caminhoOriginal.get(i);
+				String destino = caminhoOriginal.get(i + 1);
+				int distancia = grafo.calcularPeso(origem, destino);
+				distanciaTotal += distancia;
+				System.out.print(origem + " (" + distancia + "m) -> ");
 			}
-			System.out.println(caminho.get(caminho.size() - 1));
-		}
+			System.out.println(caminhoOriginal.get(caminhoOriginal.size() - 1));
+			System.out.println("Distância total: " + distanciaTotal + " metros");
 
+			// Exibindo caminhos alternativos
+			List<List<String>> caminhosAlternativos = grafo.caminhoAlternativo(inicio, fim, caminhoOriginal);
+
+			if (caminhosAlternativos.isEmpty()) {
+				System.out.println("Não há caminhos alternativos disponíveis entre " + inicio + " e " + fim);
+			} else {
+				boolean encontrouAlternativoDiferente = false;
+				System.out.println("Caminhos alternativos encontrados:");
+				for (int i = 0; i < Math.min(2, caminhosAlternativos.size()); i++) { // Limite de 2 alternativas
+					List<String> caminhoAlternativo = caminhosAlternativos.get(i);
+
+					// Verifica se o caminho alternativo é diferente do caminho original
+					if (!caminhoAlternativo.equals(caminhoOriginal)) {
+						encontrouAlternativoDiferente = true;
+						int distanciaTotal1 = 0;
+						for (int j = 0; j < caminhoAlternativo.size() - 1; j++) {
+							String origem = caminhoAlternativo.get(j);
+							String destino = caminhoAlternativo.get(j + 1);
+							int distancia = grafo.calcularPeso(origem, destino);
+							distanciaTotal1 += distancia;
+							System.out.print(origem + " (" + distancia + "m) -> ");
+						}
+						System.out.println(caminhoAlternativo.get(caminhoAlternativo.size() - 1));
+						System.out.println("Distância total: " + distanciaTotal1 + " metros");
+					}
+				}
+
+				// Se não encontrou nenhum caminho alternativo diferente
+				if (!encontrouAlternativoDiferente) {
+					System.out.println("Não foram encontrados caminhos alternativos diferentes do caminho original.");
+				}
+			}
+		}
 		scanner.close();
 	}
 }
